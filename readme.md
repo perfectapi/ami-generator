@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/perfectapi/ami-generator.png)](http://travis-ci.org/perfectapi/ami-generator)
 ami-generator
 ====
 Generate Amazon AMI images easily.  This repository contains a collection of scripts that initialize your image to your specification.  The scripts are all contained in this repository.
