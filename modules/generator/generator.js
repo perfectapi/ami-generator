@@ -70,7 +70,7 @@ exports.getImageUsingConfig = function(config, callback) {
 	//validate scripts exist
 	for(var i=0;i<scriptsWithoutDups.length;i++) {
 		var userData = path.resolve(rootPath, scriptsWithoutDups[i], 'user-data.sh');
-		if (!path.existsSync(userData)) {
+		if (!fs.existsSync(userData)) {
 			callback('Script ' + scriptsWithoutDups[i] + ' does not exist at ' + rootPath);
 			return;
 		}
@@ -79,7 +79,7 @@ exports.getImageUsingConfig = function(config, callback) {
 	if (!options.ami) {
 		//need to lookup an AMI
 		var configFilePath = path.resolve(rootPath, scriptsWithoutDups[0], 'config.json');
-		if (!path.existsSync(configFilePath)) return callback('Cannot find config containing AMI ids at ' + configFilePath);
+		if (!fs.existsSync(configFilePath)) return callback('Cannot find config containing AMI ids at ' + configFilePath);
 		
 		var amiConfig = JSON.parse(fs.readFileSync(configFilePath, 'utf-8'));
 		//logger.verbose(JSON.stringify(amiConfig.Mappings.AWSRegionArch2AMI["us-east-1"]));
@@ -250,7 +250,7 @@ getPreUserData = function(rootPath, script, callback) {
         var currentPath = allPaths.shift();  //take from front, which is root
         
         var currentFile = path.resolve(currentPath, 'pre.sh');
-        if (path.existsSync(currentFile)) {
+        if (fs.existsSync(currentFile)) {
             var b = fs.readFileSync(currentFile, 'utf8');
 			b = b.replace(/\r\n/g, '\n');
             ws.write(b);
@@ -281,7 +281,7 @@ getPostUserData = function(rootPath, script, callback) {
         var currentPath = allPaths.pop();  //take from end, which is final path
         
         var currentFile = path.resolve(currentPath, 'post.sh');
-        if (path.existsSync(currentFile)) {
+        if (fs.existsSync(currentFile)) {
             var b = fs.readFileSync(currentFile, 'utf8');
 			b = b.replace(/\r\n/g, '\n');
             ws.write(b);
@@ -312,7 +312,7 @@ getInstallScript = function(rootPath, script, callback) {
         var currentPath = allPaths.pop();  //take from end, which is final path
         
         var currentFile = path.resolve(currentPath, 'install.sh');
-        if (path.existsSync(currentFile)) {
+        if (fs.existsSync(currentFile)) {
             var b = fs.readFileSync(currentFile, 'utf8');
 			b = b.replace(/\r\n/g, '\n');
             ws.write(b);
@@ -347,7 +347,7 @@ getUserData = function(rootPath, script, callback) {
         ws.write(data);
         
         var currentFile = path.resolve(myPath, 'user-data.sh');
-        if (path.existsSync(currentFile)) {
+        if (fs.existsSync(currentFile)) {
             var b = fs.readFileSync(currentFile, 'utf8');
 			b = b.replace(/\r\n/g, '\n');
             ws.write(b);

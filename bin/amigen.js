@@ -75,7 +75,7 @@ function validateRootpath(config, callback) {
 	var options = config.options;
 	options.root = options.root || path.resolve(__dirname, '../scripts');
 
-	if (!path.existsSync(options.root)) {		
+	if (!fs.existsSync(options.root)) {		
 		callback('Scripts path "' + options.root + '" does not exist');
 	} else {
 		callback(null, config);
@@ -92,7 +92,7 @@ function walkPathSync(root, currentPath, results) {
 		
 		if (isDir) {
 			var result = path.join(currentPath, files[i])
-			if (path.existsSync(path.resolve(currentFileResolved, 'user-data.sh'))) {
+			if (fs.existsSync(path.resolve(currentFileResolved, 'user-data.sh'))) {
 				results.push(result);
 				walkPathSync(root, result, results);
 			}
